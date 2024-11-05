@@ -12,4 +12,4 @@ def parse(user_input):
     # Inject the values in a dictionary
     return {"lower_bound": lower_bound, "upper_bound": upper_bound}
 
-print("hallo kostassss")
+print("hallo kostasssssss")
