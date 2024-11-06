@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1eb26d04-8173-415a-b90a-3a8f099dd67b" name="Changes" comment="new commit 3">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="1eb26d04-8173-415a-b90a-3a8f099dd67b" name="Changes" comment="new commit 4">
+      <change afterPath="$PROJECT_DIR$/gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/cli.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,18 +34,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "xbass540"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;xbass540&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/xbass540/python_project1.git",
-    "accountId": "55b614e3-f61e-4f59-be1e-cac7a0ccb70b"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/xbass540/python_project1.git&quot;,
+    &quot;accountId&quot;: &quot;55b614e3-f61e-4f59-be1e-cac7a0ccb70b&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -53,46 +55,47 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.145ex1.executor": "Run",
-    "Python.bonus110.executor": "Run",
-    "Python.bug-fix-1.executor": "Run",
-    "Python.csv.executor": "Run",
-    "Python.ex222.executor": "Run",
-    "Python.ex66.executor": "Run",
-    "Python.ex9.executor": "Run",
-    "Python.examplec-s-vv.executor": "Run",
-    "Python.experiment144.executor": "Run",
-    "Python.files-manipulation.executor": "Run",
-    "Python.for-test.executor": "Run",
-    "Python.forloop.executor": "Run",
-    "Python.functions.executor": "Run",
-    "Python.ips.executor": "Run",
-    "Python.journal.executor": "Run",
-    "Python.lctr103.executor": "Run",
-    "Python.lctr108.executor": "Run",
-    "Python.lctr119.executor": "Run",
-    "Python.lctr144.executor": "Run",
-    "Python.lctr145.executor": "Run",
-    "Python.lctr63.executor": "Run",
-    "Python.lctr73.executor": "Run",
-    "Python.lctr81.executor": "Run",
-    "Python.lctr90.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.main_parsers.executor": "Run",
-    "Python.password-guess.executor": "Run",
-    "Python.password.executor": "Run",
-    "Python.test-def.executor": "Run",
-    "Python.test61.executor": "Run",
-    "Python.waiting-list.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "ab36bcd1",
-    "last_opened_file_path": "/home/kostas/Desktop/ACTIVE-PROJECTS/PAUSED/Python/1/pythonProject",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.145ex1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.bonus110.executor&quot;: &quot;Run&quot;,
+    &quot;Python.bug-fix-1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.csv.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ex222.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ex66.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ex9.executor&quot;: &quot;Run&quot;,
+    &quot;Python.examplec-s-vv.executor&quot;: &quot;Run&quot;,
+    &quot;Python.experiment144.executor&quot;: &quot;Run&quot;,
+    &quot;Python.files-manipulation.executor&quot;: &quot;Run&quot;,
+    &quot;Python.for-test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.forloop.executor&quot;: &quot;Run&quot;,
+    &quot;Python.functions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gui.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ips.executor&quot;: &quot;Run&quot;,
+    &quot;Python.journal.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lctr103.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lctr108.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lctr119.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lctr144.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lctr145.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lctr63.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lctr73.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lctr81.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lctr90.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_parsers.executor&quot;: &quot;Run&quot;,
+    &quot;Python.password-guess.executor&quot;: &quot;Run&quot;,
+    &quot;Python.password.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test-def.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test61.executor&quot;: &quot;Run&quot;,
+    &quot;Python.waiting-list.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;a0d7f9be&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/kostas/Desktop/ACTIVE-PROJECTS/PAUSED/Python/1/pythonProject&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/files" />
@@ -102,7 +105,7 @@
       <recent name="$PROJECT_DIR$/venv" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main_parsers">
+  <component name="RunManager" selected="Python.gui">
     <configuration name="145ex1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="pythonProject" />
       <option name="ENV_FILES" value="" />
@@ -147,7 +150,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="lctr144" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="gui" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="pythonProject" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -160,7 +163,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lctr144.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gui.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -215,11 +218,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.gui" />
         <item itemvalue="Python.main_parsers" />
         <item itemvalue="Python.145ex1" />
         <item itemvalue="Python.lctr145" />
         <item itemvalue="Python.examplec-s-vv" />
-        <item itemvalue="Python.lctr144" />
       </list>
     </recent_temporary>
   </component>
@@ -279,7 +282,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730800590508</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="new commit 4">
+      <option name="closed" value="true" />
+      <created>1730801284727</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1730801284727</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -309,6 +320,7 @@
     <MESSAGE value="new commit" />
     <MESSAGE value="new commit 2" />
     <MESSAGE value="new commit 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="new commit 3" />
+    <MESSAGE value="new commit 4" />
+    <option name="LAST_COMMIT_MESSAGE" value="new commit 4" />
   </component>
 </project>
