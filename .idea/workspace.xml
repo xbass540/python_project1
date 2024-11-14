@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1eb26d04-8173-415a-b90a-3a8f099dd67b" name="Changes" comment="new commit 4">
-      <change afterPath="$PROJECT_DIR$/gui.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/155ex1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lctr155.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,47 +56,47 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.145ex1.executor&quot;: &quot;Run&quot;,
-    &quot;Python.bonus110.executor&quot;: &quot;Run&quot;,
-    &quot;Python.bug-fix-1.executor&quot;: &quot;Run&quot;,
-    &quot;Python.csv.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ex222.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ex66.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ex9.executor&quot;: &quot;Run&quot;,
-    &quot;Python.examplec-s-vv.executor&quot;: &quot;Run&quot;,
-    &quot;Python.experiment144.executor&quot;: &quot;Run&quot;,
-    &quot;Python.files-manipulation.executor&quot;: &quot;Run&quot;,
-    &quot;Python.for-test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.forloop.executor&quot;: &quot;Run&quot;,
-    &quot;Python.functions.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gui.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ips.executor&quot;: &quot;Run&quot;,
-    &quot;Python.journal.executor&quot;: &quot;Run&quot;,
-    &quot;Python.lctr103.executor&quot;: &quot;Run&quot;,
-    &quot;Python.lctr108.executor&quot;: &quot;Run&quot;,
-    &quot;Python.lctr119.executor&quot;: &quot;Run&quot;,
-    &quot;Python.lctr144.executor&quot;: &quot;Run&quot;,
-    &quot;Python.lctr145.executor&quot;: &quot;Run&quot;,
-    &quot;Python.lctr63.executor&quot;: &quot;Run&quot;,
-    &quot;Python.lctr73.executor&quot;: &quot;Run&quot;,
-    &quot;Python.lctr81.executor&quot;: &quot;Run&quot;,
-    &quot;Python.lctr90.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_parsers.executor&quot;: &quot;Run&quot;,
-    &quot;Python.password-guess.executor&quot;: &quot;Run&quot;,
-    &quot;Python.password.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test-def.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test61.executor&quot;: &quot;Run&quot;,
-    &quot;Python.waiting-list.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;a0d7f9be&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/kostas/Desktop/ACTIVE-PROJECTS/PAUSED/Python/1/pythonProject&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.145ex1.executor": "Run",
+    "Python.bonus110.executor": "Run",
+    "Python.bug-fix-1.executor": "Run",
+    "Python.csv.executor": "Run",
+    "Python.ex222.executor": "Run",
+    "Python.ex66.executor": "Run",
+    "Python.ex9.executor": "Run",
+    "Python.examplec-s-vv.executor": "Run",
+    "Python.experiment144.executor": "Run",
+    "Python.files-manipulation.executor": "Run",
+    "Python.for-test.executor": "Run",
+    "Python.forloop.executor": "Run",
+    "Python.functions.executor": "Run",
+    "Python.gui.executor": "Run",
+    "Python.ips.executor": "Run",
+    "Python.journal.executor": "Run",
+    "Python.lctr103.executor": "Run",
+    "Python.lctr108.executor": "Run",
+    "Python.lctr119.executor": "Run",
+    "Python.lctr144.executor": "Run",
+    "Python.lctr145.executor": "Run",
+    "Python.lctr63.executor": "Run",
+    "Python.lctr73.executor": "Run",
+    "Python.lctr81.executor": "Run",
+    "Python.lctr90.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.main_parsers.executor": "Run",
+    "Python.password-guess.executor": "Run",
+    "Python.password.executor": "Run",
+    "Python.test-def.executor": "Run",
+    "Python.test61.executor": "Run",
+    "Python.waiting-list.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "cli",
+    "last_opened_file_path": "/home/kostas/Desktop/ACTIVE-PROJECTS/PAUSED/Python/1/pythonProject",
+    "run.code.analysis.last.selected.profile": "aDefault",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/files" />
@@ -229,7 +230,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-0e3be3396995-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.23339.19" />
+        <option value="bundled-python-sdk-d7ad00fb9fc3-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.23726.102" />
       </set>
     </attachedChunks>
   </component>
