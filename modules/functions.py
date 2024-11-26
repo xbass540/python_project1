@@ -20,7 +20,7 @@ def write_todos( todos_arg, filepath_arg=FILEPATH):
     :return: nothing
     """
     with open(filepath_arg, 'w') as file:
-        file.writelines(todos)
+        file.writelines(todos_arg)
 
 print(__name__)
 
