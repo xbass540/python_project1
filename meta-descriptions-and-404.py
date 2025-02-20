@@ -35,10 +35,18 @@ def create_new_folder():
         output_folder = folder_path
         folder_label.config(text=f"Created and Selected Folder: {output_folder}")
 
+def ensure_https(url):
+    """Ensure the URL starts with 'https://' or 'http://'."""
+    if not url.startswith("http://") and not url.startswith("https://"):
+        return "https://" + url
+    return url
+
 def scrape_meta_descriptions():
     global stop_scraping, output_folder
     base_url = url_entry.get().strip()  # Get URL from input field
     base_url = base_url.rstrip("/")  # Remove trailing slash if it exists
+    base_url = ensure_https(base_url)  # Ensure HTTPS
+
     if not base_url:
         messagebox.showerror("Error", "Please enter a valid URL.")
         return
@@ -152,6 +160,8 @@ def scrape_404_errors():
     global stop_scraping, output_folder
     base_url = url_entry.get().strip()  # Get URL from input field
     base_url = base_url.rstrip("/")  # Remove trailing slash if it exists
+    base_url = ensure_https(base_url)  # Ensure HTTPS
+
     if not base_url:
         messagebox.showerror("Error", "Please enter a valid URL.")
         return
@@ -199,8 +209,6 @@ def scrape_404_errors():
             try:
                 response = requests.get(url)
                 if response.status_code == 404:
-                    # If the page is not found, record the issue and return
-                    print(f"404 Not Found: {url}")
                     output_text.insert(tk.END, f"404 Not Found: {url}\n")
                     output_text.see("end")
                     csv_writer.writerow([f"Article {article_counter}", url, "404 Not Found", issues_counter])
@@ -208,7 +216,8 @@ def scrape_404_errors():
                     return
                 response.raise_for_status()
             except requests.exceptions.RequestException as e:
-                print(f"Failed to fetch {url}: {e}")
+                output_text.insert(tk.END, f"Failed to fetch {url}: {e}\n")
+                output_text.see("end")
                 return
 
             # Parse the HTML content
@@ -233,18 +242,15 @@ def scrape_404_errors():
         scrape_page(base_url)
 
         if not stop_scraping:
-            # Write final count of posts with issues to the CSV file
             csv_writer.writerow(['', '', 'Total Pages with Issues:', issues_counter])
             output_text.insert(tk.END, f"\nScraping complete. Results saved to {os.path.join(output_folder, filename)}\n")
             output_text.see("end")
             messagebox.showinfo("Success", f"Scraping complete! Results saved to {os.path.join(output_folder, filename)}")
 
-        # Close the CSV file
         csv_file.close()
 
-    # Run the scraping process in a separate thread
     thread = threading.Thread(target=scrape_process)
-    thread.daemon = True  # Ensure thread ends when the main program exits
+    thread.daemon = True
     thread.start()
 
 # Function to stop the scraping process
@@ -252,47 +258,50 @@ def stop_scrape():
     global stop_scraping
     stop_scraping = True
 
+# Function to stop the scraping process
+def quit_app():
+    root.quit()
+    root.destroy()
+
+
+
 # Create the GUI window
 root = tk.Tk()
 root.title("Meta Descriptions & 404 Errors Analyzer")
 
 # Configure the grid layout to make widgets resize dynamically
 root.rowconfigure(5, weight=1)  # Row for the output text
-root.columnconfigure(0, weight=1)  # Column for all widgets
+root.columnconfigure(0, weight=1)
 
-# Create and place the URL entry field
-url_label = tk.Label(root, text="Enter Website URL:")
-url_label.grid(row=0, column=0, sticky="w", padx=10, pady=5)
-
+# Input field and button for base URL
+url_label = tk.Label(root, text="Enter Base URL:")
+url_label.grid(row=0, column=0, padx=10, pady=5, sticky="w")
 url_entry = tk.Entry(root, width=50)
-url_entry.grid(row=0, column=1, sticky="ew", padx=10, pady=5)
+url_entry.grid(row=0, column=1, padx=10, pady=5, sticky="w")
+scrape_meta_button = tk.Button(root, text="Scrape Meta Descriptions", command=scrape_meta_descriptions)
+scrape_meta_button.grid(row=0, column=2, padx=10, pady=5)
+scrape_404_button = tk.Button(root, text="Scrape 404 Errors", command=scrape_404_errors)
+scrape_404_button.grid(row=1, column=2, padx=10, pady=5)
 
-# Create and place the folder selection button
-select_folder_button = tk.Button(root, text="Select Existing Folder", command=select_folder)
-select_folder_button.grid(row=1, column=0, pady=10, padx=5)
+# Folder selection buttons
+folder_label = tk.Label(root, text="No folder selected.")
+folder_label.grid(row=1, column=0, columnspan=2, padx=10, pady=5, sticky="w")
+select_folder_button = tk.Button(root, text="Select Folder", command=select_folder)
+select_folder_button.grid(row=2, column=0, padx=10, pady=5, sticky="w")
+create_folder_button = tk.Button(root, text="Create Folder", command=create_new_folder)
+create_folder_button.grid(row=2, column=1, padx=10, pady=5, sticky="w")
 
-# Create and place the folder creation button
-create_folder_button = tk.Button(root, text="Create New Folder", command=create_new_folder)
-create_folder_button.grid(row=1, column=1, pady=10, padx=5)
+# Output text area for status and results
+output_text = scrolledtext.ScrolledText(root, wrap=tk.WORD, height=20, width=80)
+output_text.grid(row=5, column=0, columnspan=3, padx=10, pady=5, sticky="nsew")
 
-# Create and place the folder display label
-folder_label = tk.Label(root, text="No folder selected", anchor="w")
-folder_label.grid(row=2, column=0, columnspan=2, sticky="ew", padx=10)
+# Stop button
+stop_button = tk.Button(root, text="Stop", command=stop_scrape, bg="red", fg="white")
+stop_button.grid(row=6, column=0, padx=10, pady=5, sticky="w")
 
-# Create and place the execute buttons
-execute_button = tk.Button(root, text="Find Missing Meta Descriptions", command=scrape_meta_descriptions)
-execute_button.grid(row=3, column=0, pady=10, padx=5)
+# Quit button
+quit_button = tk.Button(root, text="Quit", command=quit_app, bg="red", fg="white")
+quit_button.grid(row=6, column=1, padx=10, pady=5, sticky="w")
 
-errors_button = tk.Button(root, text="404 Errors", command=scrape_404_errors)
-errors_button.grid(row=3, column=1, pady=10, padx=5)
-
-# Create and place the stop button
-stop_button = tk.Button(root, text="Stop", command=stop_scrape)
-stop_button.grid(row=4, column=0, columnspan=2, pady=10, padx=5)
-
-# Create and place the output area
-output_text = scrolledtext.ScrolledText(root, wrap=tk.WORD)
-output_text.grid(row=5, column=0, columnspan=2, sticky="nsew", padx=10, pady=10)
-
-# Run the GUI event loop
+# Start the GUI loop
 root.mainloop()
