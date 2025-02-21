@@ -4,96 +4,95 @@ from urllib.parse import urljoin
 import csv
 import os
 import random
-import tkinter as tk  # Import tkinter for output_text
+import re
+import tkinter as tk
+from tkinter import filedialog  # For selecting save location
 
-def scrape_meta_descriptions(base_url, output_folder, output_text, stop_scraping_flag):
-    base_url = base_url.rstrip("/")  # Remove trailing slash if it exists
+def sanitize_filename(url):
+    """Convert URL into a safe filename by removing protocol and special characters."""
+    clean_url = re.sub(r"https?://", "", url)  # Remove http:// or https://
+    clean_url = re.sub(r"[^\w\-]", "_", clean_url)  # Replace non-alphanumeric chars
+    return clean_url[:30]  # Keep filename manageable (limit to 30 chars)
 
-    # Generate a random 4-digit number for the filename
-    random_number = random.randint(1000, 9999)
-    filename = f'{base_url[8:]}-meta-descriptions-{random_number}.csv'
 
-    # Open CSV file in the selected output folder
-    csv_file_path = os.path.join(output_folder, filename)
-    csv_file = open(csv_file_path, 'w', newline='', encoding='utf-8')
-    csv_writer = csv.writer(csv_file)
-    csv_writer.writerow(['Post Name', 'Post URL', 'Meta Description', 'Posts with Issues'])
-
-    visited_urls = set()  # Set to store visited URLs
-
-    # Initialize counters
+def scrape_meta_descriptions(base_url, output_text, stop_scraping_flag):
+    base_url = base_url.rstrip("/")
+    scraped_data = []
+    visited_urls = set()
     article_counter = 1
-    issues_counter = 0  # Counter for posts with issues
+    issues_counter = 0
 
     def scrape_page(url):
-        nonlocal article_counter, issues_counter  # Use nonlocal counters
-
+        nonlocal article_counter, issues_counter
         if stop_scraping_flag():
             output_text.insert(tk.END, "Scraping stopped by user.\n")
             output_text.see("end")
             return
-
-        # Avoid revisiting the same URL
         if url in visited_urls:
             return
         visited_urls.add(url)
 
-        # Fetch the page content
         try:
-            response = requests.get(url)
+            response = requests.get(url, timeout=10)
             response.raise_for_status()
         except requests.exceptions.RequestException as e:
             output_text.insert(tk.END, f"Failed to fetch {url}: {e}\n")
             output_text.see("end")
             return
 
-        # Parse the HTML content
         soup = BeautifulSoup(response.text, 'html.parser')
         output_text.insert(tk.END, f"Scraping URL: {url}\n")
         output_text.see("end")
 
-        # Extract meta description from the page
         meta_description_tag = soup.find('meta', property="og:description")
-        meta_description = meta_description_tag['content'].strip() if meta_description_tag and 'content' in meta_description_tag.attrs and meta_description_tag['content'] else "No description"
+        meta_description = meta_description_tag['content'].strip() if meta_description_tag and 'content' in meta_description_tag.attrs else "No description"
 
-        # Count posts with no meta descriptions
         if meta_description == "No description":
             issues_counter += 1
 
-        # Extract content of interest (customize based on website structure)
         for article in soup.find_all('article'):
             if stop_scraping_flag():
                 output_text.insert(tk.END, "Scraping stopped by user.\n")
                 output_text.see("end")
                 return
+
             headline = article.find('h2').text.strip() if article.find('h2') else "No headline"
             article_url = article.find('a', href=True)
             if article_url:
-                full_url = urljoin(base_url, article_url['href'])  # Convert relative URL to absolute
-                article_info = f"# {article_counter}: {headline} \n URL: {full_url}\n Meta Description: {meta_description}\n\n"
-                output_text.insert(tk.END, article_info)
-                output_text.see("end")
-                csv_writer.writerow([headline, full_url, meta_description, issues_counter])  # Write to CSV
-                article_counter += 1  # Increment the article counter
+                full_url = urljoin(base_url, article_url['href'])
+                scraped_data.append([headline, full_url, meta_description, issues_counter])
+                article_counter += 1
 
-        # Extract all links on the page
         for link in soup.find_all('a', href=True):
-            if stop_scraping_flag():
-                output_text.insert(tk.END, "Scraping stopped by user.\n")
-                output_text.see("end")
-                return
-            full_url = urljoin(base_url, link['href'])  # Convert relative URL to absolute
-            if base_url in full_url:  # Ensure the link is part of the same domain
-                scrape_page(full_url)  # Recursively scrape the next page
+            full_url = urljoin(base_url, link['href'])
+            if base_url in full_url:
+                scrape_page(full_url)
 
-    # Start scraping from the homepage
     scrape_page(base_url)
 
-    if not stop_scraping_flag():
-        # Write final count of posts with issues to the CSV file
-        csv_writer.writerow(['', '', 'Total Posts with Issues:', issues_counter])
-        output_text.insert(tk.END, f"\nScraping complete. Results saved to {csv_file_path}\n")
-        output_text.see("end")
+    output_text.insert(tk.END, "\nScraping complete. Click 'Export' to save the data.\n")
+    output_text.see("end")
 
-    # Close the CSV file
-    csv_file.close()
+    return scraped_data
+
+def export_meta_descriptions(scraped_data, base_url):
+    if not scraped_data:
+        print("No data to export.")
+        return
+
+    folder_selected = filedialog.askdirectory()
+    if not folder_selected:
+        print("Export canceled.")
+        return
+
+    random_number = random.randint(1000, 9999)
+    safe_url_part = sanitize_filename(base_url)
+    filename = f"{random_number}_meta_descriptions_{safe_url_part}.csv"
+    csv_file_path = os.path.join(folder_selected, filename)
+
+    with open(csv_file_path, 'w', newline='', encoding='utf-8') as csv_file:
+        csv_writer = csv.writer(csv_file)
+        csv_writer.writerow(['Post Name', 'Post URL', 'Meta Description', 'Posts with Issues'])
+        csv_writer.writerows(scraped_data)
+
+    print(f"\nExport complete. File saved to: {csv_file_path}")
