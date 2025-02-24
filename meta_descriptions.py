@@ -15,65 +15,68 @@ def sanitize_filename(url):
     return clean_url[:30]  # Keep filename manageable (limit to 30 chars)
 
 
-def scrape_meta_descriptions(base_url, output_text, stop_scraping_flag):
-    base_url = base_url.rstrip("/")
-    scraped_data = []
+def scrape_404_errors(urls, output_text, stop_scraping_flag, update_progress):
+    """Scrape multiple URLs for 404 errors."""
     visited_urls = set()
-    article_counter = 1
-    issues_counter = 0
+    scraped_data = []  # Store results in memory
+    queue = deque(urls)  # Use BFS with the provided URLs
 
-    def scrape_page(url):
-        nonlocal article_counter, issues_counter
+    total_urls = len(urls)  # Total URLs to process
+
+    while queue:
         if stop_scraping_flag():
             output_text.insert(tk.END, "Scraping stopped by user.\n")
             output_text.see("end")
-            return
+            break
+
+        url = queue.popleft()
+
         if url in visited_urls:
-            return
+            continue
         visited_urls.add(url)
 
         try:
             response = requests.get(url, timeout=10)
+            if response.status_code == 404:
+                output_text.insert(tk.END, f"404 Not Found: {url}\n")
+                output_text.see("end")
+                scraped_data.append(["Article", url, "404 Not Found"])
+                continue
+
             response.raise_for_status()
+
+            if "text/html" not in response.headers.get("Content-Type", ""):
+                scraped_data.append(["Non-HTML Content", url, "Skipped"])
+                continue
+
+            response.encoding = response.apparent_encoding
+
         except requests.exceptions.RequestException as e:
             output_text.insert(tk.END, f"Failed to fetch {url}: {e}\n")
             output_text.see("end")
-            return
+            continue
 
-        soup = BeautifulSoup(response.text, 'html.parser')
+        try:
+            soup = BeautifulSoup(response.text, 'html.parser')
+        except Exception as e:
+            output_text.insert(tk.END, f"Error parsing {url}: {e}\n")
+            output_text.see("end")
+            continue
+
         output_text.insert(tk.END, f"Scraping URL: {url}\n")
         output_text.see("end")
+        output_text.update_idletasks()  # Keep GUI responsive
 
-        meta_description_tag = soup.find('meta', property="og:description")
-        meta_description = meta_description_tag['content'].strip() if meta_description_tag and 'content' in meta_description_tag.attrs else "No description"
+        page_title = soup.find('title').text.strip() if soup.find('title') else "No title"
+        issue_status = "404 Not Found" if response.status_code == 404 else "Page Found"
+        scraped_data.append([page_title, url, issue_status])
 
-        if meta_description == "No description":
-            issues_counter += 1
+        update_progress(len(visited_urls), total_urls)  # Update progress
 
-        for article in soup.find_all('article'):
-            if stop_scraping_flag():
-                output_text.insert(tk.END, "Scraping stopped by user.\n")
-                output_text.see("end")
-                return
-
-            headline = article.find('h2').text.strip() if article.find('h2') else "No headline"
-            article_url = article.find('a', href=True)
-            if article_url:
-                full_url = urljoin(base_url, article_url['href'])
-                scraped_data.append([headline, full_url, meta_description, issues_counter])
-                article_counter += 1
-
-        for link in soup.find_all('a', href=True):
-            full_url = urljoin(base_url, link['href'])
-            if base_url in full_url:
-                scrape_page(full_url)
-
-    scrape_page(base_url)
-
-    output_text.insert(tk.END, "\nScraping complete. Click 'Export' to save the data.\n")
+    output_text.insert(tk.END, "Scraping complete.\n")
     output_text.see("end")
+    return scraped_data  # Return collected data for export
 
-    return scraped_data
 
 def export_meta_descriptions(scraped_data, base_url):
     if not scraped_data:
